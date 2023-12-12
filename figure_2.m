@@ -1,14 +1,15 @@
 clc
 clear all
 
-%Parametros do mapa
+%Map parameters
 a=1.4;
 b=0.3;
 
-%Parametros do filtro
+%Filter parameters
 Nganhos = 1005
-G = linspace(-10,10,Nganhos); % frequências de corte
+G = linspace(-10,10,Nganhos);
 
+%Fixed point
 for iterag=1:Nganhos, 
     p1mais(iterag) = (-(1-b)+sqrt((1-b)^2+4*a*(G(iterag)^2)))/(2*G(iterag)^2);
     p1menos(iterag) = (-(1-b)-sqrt((1-b)^2+4*a*(G(iterag)^2)))/(2*G(iterag)^2);

@@ -1,15 +1,14 @@
 clc
 clear all
 
-%Parametros de simulacao
+%Simulation parameters
 Nitera=3000;
-
-%Parametros do mapa
-a=1.4;
-b=0.3;
-
 len_pontos=150;
 pontos=0:1:len_pontos;
+
+%Map parameters
+a=1.4;
+b=0.3;
 
 %%
 Ns=0;
@@ -62,7 +61,7 @@ for n=1:1:Nitera
     xp1(:,n+1) = Henon_N_4(xp1(:,n),a,b,c);
 end
 
-%%
+%% Phase space
 Ns=14;
 ganho = 1;
 c = [1 zeros(1,Ns) 1];
@@ -79,17 +78,17 @@ for n=1:1:Nitera
     xc1(:,n+1) = Henon_N_4(xc1(:,n),a,b,c);
 end
 
-%%
+%% DEP
 
-N = 1e6; % número de pontos
-Nfft = 1e4; % número de pontos da FFT
+N = 1e6; % number of points
+Nfft = 1e4; % number of FFT points
 
 for n=1:1:N
     xc(:,n+1) = Henon_N_4(xc(:,n),a,b,c);
 end
 
 sinal = xc(1,1:end);
-Num_Sinais = 100; %quantidade de sinais   
+Num_Sinais = 100; %number of signals   
 [pxx1] = pwelch(sinal,64,32);
 w = linspace(0,1,2*64-1);
 
@@ -101,7 +100,6 @@ hold on
 plot(pontos,xpf1(1,1:length(pontos)),'Color','black','LineWidth',1)
 hold off
 ylabel('$x_{1}$','Interpreter','latex','FontSize', 40)
-%xlabel('$n$','Interpreter','latex','FontSize', 40)
 grid on
 ylim([-2.1 2.1])
 yticks([-2 0 2])
@@ -113,7 +111,6 @@ hold on
 plot(pontos,xp1(1,1:length(pontos)),'Color','black','LineWidth',1)
 hold off
 ylabel('$x_{1}$','Interpreter','latex','FontSize', 40)
-%xlabel('$n$','Interpreter','latex','FontSize', 40)
 grid on
 ylim([-2.1 2.1])
 yticks([-2 0 2])

@@ -1,25 +1,25 @@
 clc
 clear all
 
-a=1.4;b=0.3;N=3000;
-x=zeros(1,N);y=zeros(1,N);
-x(1)=0;y(1)=0;
+%% Temporal series 
+a=1.4;b=0.3;N=3000; %Map parameters 
+x=zeros(1,N);y=zeros(1,N); 
+x(1)=0;y(1)=0; %initial conditions
 for n=1:N
 x(n+1)=a-(x(n))^2+b*y(n);
 y(n+1)=x(n);
 end
 
 x1=zeros(1,N);y1=zeros(1,N);
-x1(1)=0.0001;y1(1)=0.0001;
+x1(1)=0.0001;y1(1)=0.0001; %initial conditions
 for n=1:N
 x1(n+1)=a-(x1(n))^2+b*y1(n);
 y1(n+1)=x1(n);
 end
 
-%%
+%% phase space
 
-N = 1e6; % número de pontos
-Nfft = 1e4; % número de pontos da FFT
+N = 1e6; % number of points
 
 xh=zeros(1,N);yh=zeros(1,N);
 xh(1)=0;yh(1)=0;
@@ -28,13 +28,14 @@ xh(n+1)=a-(xh(n))^2+b*yh(n);
 yh(n+1)=xh(n);
 end
 
+%% DEP
+Nfft = 1e4; % number of FFT points
 sinal = xh(1,1:end);
-Num_Sinais = 100; %quantidade de sinais  
+Num_Sinais = 100; %number of signals  
 [pxx1] = pwelch(sinal,64,32);
 w = linspace(0,1,2*64-1);
 
 %%
-
 pontos = 0:1:50;
 
 figure

@@ -1,7 +1,8 @@
 clear all
 clc
 
-%Parametros simulação
+%% Figure
+%Simulation parameters
 Numero_bifurc = 1000; 
 N_itera = 1500; 
 descartN_itera = 1000; 
@@ -9,18 +10,16 @@ inicio_bifurc = 0.0001;
 fim_bifurc = 1.8; 
 bifurc = linspace(inicio_bifurc,fim_bifurc,Numero_bifurc);
 
-%Parametros mapa
+%Map parameters
 ganho=inicio_bifurc;
 a=1.4;
 b=0.3;
 
-%%
-
-%Vetor x1 e x2
+%Vector x1 and x2
 orbitasx_1 = zeros(N_itera,Numero_bifurc);
 orbitasx_2 = zeros(N_itera,Numero_bifurc);
 
-%Condição inicial - Ponto fixo
+%Initial condition - Fixed point
 p1A = (-(1-b)+sqrt((1-b)^2+4*a*(ganho^2)))/(2*ganho^2);
 p2A = p1A;
 p3A = ganho*p1A;
@@ -29,7 +28,6 @@ orbitasx_1(1,1) = p1A;
 orbitasx_2(1,1) = p2A;
 
 for inda = 1:Numero_bifurc,
-    %Calculo dos coeficientes
     ganho = bifurc(inda);
     Ns=0;
     c = [1 1];
@@ -49,7 +47,7 @@ for inda = 1:Numero_bifurc,
         end
     end
        
-    %Vetor x
+    %Vector x
     x=[orbitasx_1(1,inda);orbitasx_2(1,inda)];
     for n = 1:N_itera-1,
     x(:,n+1) = Henon_N_2(x(:,n),a,b,c);
@@ -61,9 +59,9 @@ end
 bifurc1 = bifurc;
 orbitasx_11 = orbitasx_1;
 
-%%
+%% Zoom Figure
 
-%Parametros simulação
+%Simulation parameters
 Numero_bifurc = 1000; 
 N_itera = 1500; 
 descartN_itera = 1000; 
@@ -71,18 +69,18 @@ inicio_bifurc = 1.35;
 fim_bifurc = 1.55; 
 bifurc = linspace(inicio_bifurc,fim_bifurc,Numero_bifurc);
 
-%Parametros mapa
+%Map parameters
 ganho=inicio_bifurc;
 a=1.4;
 b=0.3;
 
 %%
 
-%Vetor x1 e x2
+%Vector x1 e x2
 orbitasx_1 = zeros(N_itera,Numero_bifurc);
 orbitasx_2 = zeros(N_itera,Numero_bifurc);
 
-%Condição inicial - Ponto fixo
+%Initial condition - Fixed point
 p1A = (-(1-b)+sqrt((1-b)^2+4*a*(ganho^2)))/(2*ganho^2);
 p2A = p1A;
 p3A = ganho*p1A;
@@ -91,7 +89,6 @@ orbitasx_1(1,1) = p1A;
 orbitasx_2(1,1) = p2A;
 
 for inda = 1:Numero_bifurc,
-    %Calculo dos coeficientes
     ganho = bifurc(inda);
     Ns=0;
     c = [1 1];
@@ -111,7 +108,7 @@ for inda = 1:Numero_bifurc,
         end
     end
     
-    %Vetor x
+    %Vector x
     x=[orbitasx_1(1,inda);orbitasx_2(1,inda)];
     for n = 1:N_itera-1,
     x(:,n+1) = Henon_N_2(x(:,n),a,b,c);
