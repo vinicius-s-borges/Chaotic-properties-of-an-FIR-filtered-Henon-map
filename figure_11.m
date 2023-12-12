@@ -1,23 +1,23 @@
-% clear all
-% clc
+clear all
+clc
 
 %%
 
-%Parametros de simulacao
-Nitera=500; % número de iterações jogadas fora
-N_itera_mapa=3000; % número de iterações 
-ninicial=10; % quantidade de variáveis aleatorias 
+%Simulation parameters
+Nitera=500; % number of iterations discarded
+N_itera_mapa=3000; % number of iterations 
+ninicial=10; % number of random variables 
 
 
-%Parametros do mapa
+%Map parameters
 a=1.4;
 b=0.3;
 
-%Parametros do filtro
-Nws = 500;
-w=linspace(0.00001,3.14,Nws);
-Nganhos = 500; 
-ganhos = linspace(0.0001,3,Nganhos); 
+%Filter parameters
+Nws = 500; % number of frequencies
+w=linspace(0.00001,3.14,Nws); % frequencies
+Nganhos = 500; % number of gain
+ganhos = linspace(0.0001,3,Nganhos); % gain
 %%
 
 for iteraws=1:Nws,
@@ -31,7 +31,7 @@ for iterag=1:Nganhos,
     
     if Ns==1
         
-        %Ponto fixo A
+        %Fixed Point +
         p1A = (-(1-b)+sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2A = p1A;
         p3A = gamma*p1A;
@@ -43,7 +43,7 @@ for iterag=1:Nganhos,
         
         autovA(iteraws,iterag) = max(autovaloresA);
         
-        %Ponto fixo B
+        %Fixed Point -
         p1B = (-(1-b)-sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2B = p1B;
         p3B = gamma*p1B;
@@ -59,7 +59,7 @@ for iterag=1:Nganhos,
 
     if Ns==2
         
-        %Ponto fixo A
+        %Fixed Point +
         p1A = (-(1-b)+sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2A = p1A;
         p3A = gamma*p1A;
@@ -71,7 +71,7 @@ for iterag=1:Nganhos,
         
         autovA(iteraws,iterag) = max(autovaloresA);
         
-        %Ponto fixo B
+        %Fixed Point -
         p1B = (-(1-b)-sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2B = p1B;
         p3B = gamma*p1B;
@@ -87,7 +87,7 @@ for iterag=1:Nganhos,
     
     if Ns==3
         
-        %Ponto fixo A
+        %Fixed Point +
         p1A = (-(1-b)+sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2A = p1A;
         p3A = gamma*p1A;
@@ -99,7 +99,7 @@ for iterag=1:Nganhos,
         
         autovA(iteraws,iterag) = max(autovaloresA);
         
-        %Ponto fixo B
+        %Fixed Point -
         p1B = (-(1-b)-sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2B = p1B;
         p3B = gamma*p1B;
@@ -114,7 +114,7 @@ for iterag=1:Nganhos,
     end    
     
     if length(c)>3
-        %Ponto fixo A
+        %Fixed Point +
         p1A = (-(1-b)+sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2A = p1A;
         p3A = gamma*p1A;
@@ -126,7 +126,7 @@ for iterag=1:Nganhos,
         
         autovA(iteraws,iterag) = max(autovaloresA);
         
-        %Ponto fixo B
+        %Fixed Point -
         p1B = (-(1-b)-sqrt((1-b)^2+4*a*(gamma^2)))/(2*gamma^2);
         p2B = p1B;
         p3B = gamma*p1B;
@@ -553,27 +553,27 @@ end
 
 function [lyapunov] = lyapunov_N_1(x,Nitera,Ncoeficientes,coeficientes,alfa,beta)
 
-w = eye(Ncoeficientes); %Base ortonormal inicial
+w = eye(Ncoeficientes); %Initial orthonormal base
 
     for i = 1:Nitera, 
         dx = dhenon_N_1(x,beta,coeficientes); 
         z = dx*w; 
          
-        %ortogonizacao de Gram-Schmidt 
+        %Gram-Schmidt orthogonalization  
         y = gsog(z); 
         w=[]; 
          
-        %Normalizacao 
+        %Standardization 
         for k=1:Ncoeficientes 
             r(k,i)=norm(y(:,k)); 
             w = [w y(:,k)/norm(y(:,k))]; 
         end 
              
-        %Iteracao do mapa 
+        %Map iteration 
         x=Henon_N_1(x,alfa,beta,coeficientes); 
     end 
     
-    %Cálculo dos expoentes de Lyapunov
+    %Calculation of Lyapunov exponents
     for k=1:Ncoeficientes
     lyapunov(k) = sum(log(r(k,:)))/Nitera;
     end
@@ -594,27 +594,27 @@ end
 
 function [lyapunov] = lyapunov_N_2(x,Nitera,Ncoeficientes,coeficientes,alfa,beta)
 
-w = eye(Ncoeficientes); %Base ortonormal inicial
+w = eye(Ncoeficientes); %Initial orthonormal base
 
     for i = 1:Nitera, 
         dx = dhenon_N_2(x,beta,coeficientes); 
         z = dx*w; 
          
-        %ortogonizacao de Gram-Schmidt 
+        %Gram-Schmidt orthogonalization  
         y = gsog(z); 
         w=[]; 
          
-        %Normalizacao 
+        %Standardization 
         for k=1:Ncoeficientes 
             r(k,i)=norm(y(:,k)); 
             w = [w y(:,k)/norm(y(:,k))]; 
         end 
              
-        %Iteracao do mapa 
+        %Map iteration 
         x=Henon_N_2(x,alfa,beta,coeficientes); 
     end 
     
-    %Cálculo dos expoentes de Lyapunov
+    %Calculation of Lyapunov exponents
     for k=1:Ncoeficientes
     lyapunov(k) = sum(log(r(k,:)))/Nitera;
     end
@@ -635,27 +635,27 @@ end
 
 function [lyapunov] = lyapunov_N_3(x,Nitera,Ncoeficientes,coeficientes,alfa,beta)
 
-w = eye(Ncoeficientes); %Base ortonormal inicial
+w = eye(Ncoeficientes); %Initial orthonormal base
 
     for i = 1:Nitera, 
         dx = dhenon_N_3(x,beta,coeficientes); 
         z = dx*w; 
          
-        %ortogonizacao de Gram-Schmidt 
+        %Gram-Schmidt orthogonalization  
         y = gsog(z); 
         w=[]; 
          
-        %Normalizacao 
+        %Standardization 
         for k=1:Ncoeficientes 
             r(k,i)=norm(y(:,k)); 
             w = [w y(:,k)/norm(y(:,k))]; 
         end 
              
-        %Iteracao do mapa 
+        %Map iteration 
         x=Henon_N_3(x,alfa,beta,coeficientes); 
     end 
     
-    %Cálculo dos expoentes de Lyapunov
+    %Calculation of Lyapunov exponents
     for k=1:Ncoeficientes
     lyapunov(k) = sum(log(r(k,:)))/Nitera;
     end
@@ -678,27 +678,27 @@ end
 
 function [lyapunov] = lyapunov_N_4(x,Nitera,Ncoeficientes,coeficientes,alfa,beta)
 
-w = eye(Ncoeficientes); %Base ortonormal inicial
+w = eye(Ncoeficientes); %Initial orthonormal base
 
     for i = 1:Nitera
         dx = dhenon_N_4(x,Ncoeficientes,coeficientes); 
         z = dx*w; 
          
-        %ortogonizacao de Gram-Schmidt 
+        %Gram-Schmidt orthogonalization  
         y = gsog(z); 
         w=[]; 
          
-        %Normalizacao 
+        %Standardization 
         for k=1:Ncoeficientes 
             r(k,i)=norm(y(:,k)); 
             w = [w y(:,k)/norm(y(:,k))]; 
         end 
              
-        %Iteracao do mapa 
+        %Map iteration 
         x=Henon_N_4(x,alfa,beta,coeficientes); 
     end 
     
-    %Cálculo dos expoentes de Lyapunov
+    %Calculation of Lyapunov exponents
     for k=1:Ncoeficientes
     lyapunov(k) = sum(log(r(k,:)))/Nitera;
     end

@@ -1,21 +1,21 @@
 clear all
 clc
 
-%Parametros de simulacao
-Nitera=500; % número de iterações jogadas fora
-N_itera_mapa=3000; % número de iterações 
-ninicial=10; % quantidade de variáveis aleatorias 
+%Simulation parameters
+Nitera=500; % number of iterations discarded
+N_itera_mapa=3000; % number of iterations 
+ninicial=10; % number of random variables 
 
 
-%Parametros do mapa
+%Map parameters
 a=1.4;
 b=0.3;
 
-%Parametros do filtro
-coef = 0:1:40; % frequências de corte
-Ncoef = length(coef); % quantidade de frequências de corte
-Nganhos = 100; % quantidade de frequências de corte
-ganhos = linspace(0.000001,2.5,Nganhos); % frequências de corte
+%Filter parameters
+coef = 0:1:40; % coefficients
+Ncoef = length(coef); % numbers coefficients
+Nganhos = 100; % numbers of gains
+ganhos = linspace(0.000001,2.5,Nganhos); % gains
 
 %%
 
