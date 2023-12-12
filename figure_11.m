@@ -6,7 +6,7 @@ clc
 %Simulation parameters
 Nitera=500; % number of iterations discarded
 N_itera_mapa=3000; % number of iterations 
-ninicial=10; % number of random variables 
+ninicial=25; % number of random variables 
 
 
 %Map parameters
